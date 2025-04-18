@@ -57,6 +57,8 @@
                             <th>Quantity</th>
                             <th>Date</th>
                             <th>Customer Name</th>
+                            <th>Phone</th>
+                            <th>Address</th>
                             <th>Status</th>
                             <th>Amount</th>
                         </tr>
@@ -83,6 +85,8 @@
                                 <td>{{ $order->quantity }}</td>
                                 <td>{{ $order->created_at->format('Y-m-d H:i') }}</td>
                                 <td>{{ $order->user->name }}</td>
+                                <td>081212912182182</td>
+                                <td>Depok</td>
                                 <td>{{ $order->status }}</td>
                                 <td>Rp{{ number_format($order->product->price * $order->quantity, 0, ',', '.') }}</td>
                             </tr>
