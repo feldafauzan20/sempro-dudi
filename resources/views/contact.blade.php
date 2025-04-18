@@ -49,9 +49,12 @@
             <h1 class="text-4xl text-white">Got a project in mind and need the right materials to
                 make it happen? Our team is ready to assist you with the best cement solutions and dependable
                 service. Click below and let’s start building something great together.</h1>
-            <a class="btn btn-outline btn-success my-7 hover:text-white" href="">
+            <a class="btn btn-outline btn-success my-7 hover:text-white" href="https://wa.me/6285807456618"
+                target="_blank">
                 <i class="fab fa-whatsapp text-xl"></i>
-                Contact us here</a>
+                Contact us here
+            </a>
+
         </div>
     </div>
     <footer class="footer sm:footer-horizontal footer-center text-base-content bg-[#2563EA] p-4">

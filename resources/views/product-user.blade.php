@@ -77,7 +77,9 @@
                                         <button type="button" onclick="increaseQty(this)"
                                             class="btn btn-sm btn-outline">+</button>
                                 </div>
-                                <button class="btn btn-primary" type="submit">Buy Now</button>
+                                <button class="btn btn-primary" type="button" onclick="showModal(this)">Buy
+                                    Now</button>
+
                                 </form>
                             </div>
 
@@ -95,9 +97,37 @@
         </aside>
     </footer>
 
+    <!-- Modal -->
+    <div id="successModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50">
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
+            <h2 class="text-xl font-semibold text-[#2563EA] mb-4">Thank you!</h2>
+            <p class="text-black">You will be contacted by our admin shortly.</p>
+            <button onclick="closeModal()"
+                class="mt-4 bg-[#2563EA] text-white px-4 py-2 rounded hover:bg-blue-700">OK</button>
+        </div>
+    </div>
+
+
 </body>
 
 <script>
+    let currentForm = null;
+
+    function showModal(button) {
+        currentForm = button.closest('form'); // simpan form yang diklik
+        document.getElementById('successModal').classList.remove('hidden');
+        document.getElementById('successModal').classList.add('flex');
+    }
+
+    function closeModal() {
+        document.getElementById('successModal').classList.add('hidden');
+        document.getElementById('successModal').classList.remove('flex');
+
+        if (currentForm) {
+            currentForm.submit(); // submit form setelah user klik OK
+        }
+    }
+
     function increaseQty(el) {
         const input = el.parentElement.querySelector('.qty-input');
         input.value = parseInt(input.value) + 1;

@@ -1,6 +1,6 @@
 <x-guest-layout>
-    <h1 class="text-[#204AD9] font-extrabold text-3xl">Masuk ke akun Anda</h1>
-    <p>Belum punya akun? <a href="/register" class="hover:underline text-[#1b49ac]">Buat akun</a> </p>
+    <h1 class="text-[#204AD9] font-extrabold text-3xl">Sign in to your account</h1>
+    <p>Don't have an account? <a href="/register" class="hover:underline text-[#1b49ac]">Create one</a> </p>
     <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
