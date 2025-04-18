@@ -24,8 +24,19 @@ class OrderController extends Controller
         ]);
 
         $product = Product::find($request->product_id);
+
         if ($product->stock < $request->quantity) {
-            return back()->with('error', 'Not enough stock available');
+            return response()->json([
+                'success' => false,
+                'message' => 'Insufficient stock. Available: ' . $product->stock
+            ], 400);
+        }
+
+        if ($request->quantity == 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Quantity must be greater than 0'
+            ], 400);
         }
 
         $product->stock -= $request->quantity;
@@ -33,6 +44,9 @@ class OrderController extends Controller
 
         Order::create($request->all());
 
-        return redirect()->route('product-user')->with('success', 'Order created successfully');
+        return response()->json([
+            'success' => true,
+            'message' => 'Order created successfully'
+        ], 200);
     }
 }

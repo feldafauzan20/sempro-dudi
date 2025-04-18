@@ -58,13 +58,14 @@
                             <h2 class="card-title">{{ $product->name }}</h2>
                             <p class="text-green-400">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
                             <p>{{ $product->description }}</p>
+                            <p>Stock: {{ $product->stock }}</p>
 
                             <div class="card-actions flex items-center justify-between">
 
                                 <!-- Quantity selector -->
                                 <div class="flex items-center gap-2">
-                                    <form action="{{ route('order.store') }}" method="POST"
-                                        enctype="multipart/form-data">
+                                    <form class="order-form" action="{{ route('order.store') }}" method="POST"
+                                        enctype="multipart/form-data" onsubmit="handleSubmit(event)">
                                         @csrf
                                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -77,12 +78,10 @@
                                         <button type="button" onclick="increaseQty(this)"
                                             class="btn btn-sm btn-outline">+</button>
                                 </div>
-                                <button class="btn btn-primary" type="button" onclick="showModal(this)">Buy
+                                <button class="btn btn-primary" type="submit">Buy
                                     Now</button>
                                 </form>
                             </div>
-
-
                         </div>
                     </div>
                 @endforeach
@@ -98,47 +97,82 @@
 
     <!-- Modal -->
     <div id="successModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50">
-        <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
-            <h2 class="text-xl font-semibold text-[#2563EA] mb-4">Thank you!</h2>
+        <div class="w-full max-w-sm rounded-lg bg-white p-6 text-center shadow-lg">
+            <h2 class="mb-4 text-xl font-semibold text-[#2563EA]">Thank you!</h2>
             <p class="text-black">You will be contacted by our admin shortly.</p>
-            <button onclick="closeModal()"
-                class="mt-4 bg-[#2563EA] text-white px-4 py-2 rounded hover:bg-blue-700">OK</button>
+            <button onclick="closeSuccessModal()"
+                class="mt-4 rounded bg-[#2563EA] px-4 py-2 text-white hover:bg-blue-700">OK</button>
         </div>
     </div>
 
+    <div id="errorModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50">
+        <div class="w-full max-w-sm rounded-lg bg-white p-6 text-center shadow-lg">
+            <h2 class="mb-4 text-xl font-semibold text-red-600">Error!</h2>
+            <p class="text-black" id="errorMessage"></p>
+            <button onclick="closeErrorModal()"
+                class="mt-4 rounded bg-red-600 px-4 py-2 font-medium text-white hover:bg-red-700">Close</button>
+        </div>
+    </div>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+
+            const form = event.target.closest('form');
+            fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showSuccessModal();
+                    } else {
+                        showErrorModal(data.message);
+                    }
+                })
+                .catch(error => {
+                    showErrorModal('An error occurred. Please try again.');
+                });
+        }
+
+        function showSuccessModal() {
+            document.getElementById('successModal').classList.remove('hidden');
+            document.getElementById('successModal').classList.add('flex');
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.add('hidden');
+            document.getElementById('successModal').classList.remove('flex');
+            window.location.href = '/product-user';
+        }
+
+        function showErrorModal(message) {
+            if (message) {
+                document.getElementById('errorMessage').textContent = message;
+            }
+            document.getElementById('errorModal').classList.remove('hidden');
+            document.getElementById('errorModal').classList.add('flex');
+        }
+
+        function closeErrorModal() {
+            document.getElementById('errorModal').classList.add('hidden');
+            document.getElementById('errorModal').classList.remove('flex');
+        }
+
+        function increaseQty(el) {
+            const input = el.parentElement.querySelector('.qty-input');
+            input.value = parseInt(input.value) + 1;
+        }
+
+        function decreaseQty(el) {
+            const input = el.parentElement.querySelector('.qty-input');
+            if (parseInt(input.value) > 0) {
+                input.value = parseInt(input.value) - 1;
+            }
+        }
+    </script>
 
 </body>
-
-<script>
-    let currentForm = null;
-
-    function showModal(button) {
-        currentForm = button.closest('form'); // simpan form yang diklik
-        document.getElementById('successModal').classList.remove('hidden');
-        document.getElementById('successModal').classList.add('flex');
-    }
-
-    function closeModal() {
-        document.getElementById('successModal').classList.add('hidden');
-        document.getElementById('successModal').classList.remove('flex');
-
-        if (currentForm) {
-            currentForm.submit(); // submit form setelah user klik OK
-        }
-    }
-
-    function increaseQty(el) {
-        const input = el.parentElement.querySelector('.qty-input');
-        input.value = parseInt(input.value) + 1;
-    }
-
-    function decreaseQty(el) {
-        const input = el.parentElement.querySelector('.qty-input');
-        if (parseInt(input.value) > 0) {
-            input.value = parseInt(input.value) - 1;
-        }
-    }
-</script>
-
 
 </html>
