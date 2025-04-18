@@ -79,7 +79,6 @@
                                 </div>
                                 <button class="btn btn-primary" type="button" onclick="showModal(this)">Buy
                                     Now</button>
-
                                 </form>
                             </div>
 
