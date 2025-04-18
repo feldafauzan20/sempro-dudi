@@ -14,7 +14,7 @@
         <!-- Sidebar -->
         <aside class="min-h-screen w-64 bg-white shadow-lg">
             <div class="border-b border-gray-200 p-6">
-                <div class="flex h-fit w-full items-center justify-center text-[#2563EA] text-2xl font-bold">
+                <div class="flex h-fit w-full items-center justify-center text-2xl font-bold text-[#2563EA]">
                     GRAND MORTAR
                 </div>
             </div>
@@ -85,8 +85,8 @@
                                 <td>{{ $order->quantity }}</td>
                                 <td>{{ $order->created_at->format('Y-m-d H:i') }}</td>
                                 <td>{{ $order->user->name }}</td>
-                                <td>081212912182182</td>
-                                <td>Depok</td>
+                                <td>{{ $order->user->phone }}</td>
+                                <td>{{ $order->user->address }}</td>
                                 <td>{{ $order->status }}</td>
                                 <td>Rp{{ number_format($order->product->price * $order->quantity, 0, ',', '.') }}</td>
                             </tr>
