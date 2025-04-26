@@ -59,7 +59,6 @@
                             <th>Customer Name</th>
                             <th>Phone</th>
                             <th>Address</th>
-                            <th>Status</th>
                             <th>Amount</th>
                         </tr>
                     </thead>
@@ -87,7 +86,6 @@
                                 <td>{{ $order->user->name }}</td>
                                 <td>{{ $order->user->phone }}</td>
                                 <td>{{ $order->user->address }}</td>
-                                <td>{{ $order->status }}</td>
                                 <td>Rp{{ number_format($order->product->price * $order->quantity, 0, ',', '.') }}</td>
                             </tr>
                         @endforeach
