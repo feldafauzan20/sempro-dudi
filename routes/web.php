@@ -16,6 +16,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/order-list', [OrderController::class, 'index'])->name('order.index');
 
     Route::post('/products/store', [ProductController::class, 'store'])->name('products.store');
+    Route::put('/products/update/{id}', [ProductController::class, 'update'])->name('products.update');
 });
 
 Route::middleware('auth')->group(function () {
