@@ -14,7 +14,7 @@
         <!-- Sidebar -->
         <aside class="min-h-screen w-64 bg-white shadow-lg">
             <div class="border-b border-gray-200 p-6">
-                <div class="flex h-fit w-full items-center justify-center text-[#2563EA] text-2xl font-bold">
+                <div class="flex h-fit w-full items-center justify-center text-2xl font-bold text-[#2563EA]">
                     GRAND MORTAR
                 </div>
             </div>
@@ -95,7 +95,82 @@
                 <!-- Product Card -->
                 @foreach ($products as $product)
                     <div class="relative rounded-lg bg-white p-4 shadow">
-                        <div class="absolute right-3 top-3 text-gray-500">⋮</div>
+                        <div class="dropdown dropdown-end absolute right-3 top-3">
+                            <div tabindex="0" role="button" class="cursor-pointer text-gray-500">⋮</div>
+                            <ul tabindex="0"
+                                class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                                <li><button onclick="edit_modal_{{ $product->id }}.showModal()"
+                                        class="w-full text-left text-white">✏️ Edit</button></li>
+                                <dialog id="edit_modal_{{ $product->id }}" class="modal">
+                                    <div class="modal-box bg-[#003B4A]">
+                                        <form method="dialog">
+                                            <button
+                                                class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                        </form>
+                                        <div>
+                                            <h2 class="my-3 text-3xl font-bold">Edit Product</h2>
+                                            <hr>
+                                        </div>
+
+                                        <form action="{{ route('products.update', $product->id) }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            @method('PUT')
+                                            <fieldset class="fieldset">
+                                                <legend class="fieldset-legend">Current image</legend>
+                                                <img src="{{ asset('storage/' . $product->image) }}"
+                                                    alt="Current Product Image" class="mb-2 h-32 w-32 object-cover">
+                                                <legend class="fieldset-legend">Choose new image</legend>
+                                                <input type="file"
+                                                    class="file-input w-full bg-white text-black file:bg-white file:text-black"
+                                                    name="image" />
+                                                @error('image')
+                                                    <span class="text-red-500">{{ $message }}</span>
+                                                @enderror
+                                                <legend class="fieldset-legend">Name</legend>
+                                                <input type="text" class="input w-full bg-white text-black"
+                                                    placeholder="Name" name="name" value="{{ $product->name }}" />
+                                                @error('name')
+                                                    <span class="text-red-500">{{ $message }}</span>
+                                                @enderror
+                                                <legend class="fieldset-legend">Description</legend>
+                                                <textarea class="textarea h-24 w-full bg-white text-black" placeholder="Description" name="description">{{ $product->description }}</textarea>
+                                                @error('description')
+                                                    <span class="text-red-500">{{ $message }}</span>
+                                                @enderror
+                                                <legend class="fieldset-legend">Price</legend>
+                                                <input type="number" class="input w-full bg-white text-black"
+                                                    placeholder="Price" name="price"
+                                                    value="{{ $product->price }}" />
+                                                @error('price')
+                                                    <span class="text-red-500">{{ $message }}</span>
+                                                @enderror
+                                                <legend class="fieldset-legend">Stock</legend>
+                                                <input type="number" class="input w-full bg-white text-black"
+                                                    placeholder="Stock" name="stock"
+                                                    value="{{ $product->stock }}" />
+                                                @error('stock')
+                                                    <span class="text-red-500">{{ $message }}</span>
+                                                @enderror
+                                            </fieldset>
+                                            <button class="btn btn-outline my-5" type="submit">Update</button>
+                                        </form>
+                                    </div>
+                                </dialog>
+                                {{-- @{{ route('products.edit', $product - > id) }} --}}
+                                </li>
+                                {{-- {{ route('products.destroy', $product->id) }} --}}
+                                <li>
+                                    <form action="" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="w-full text-left text-white"
+                                            onclick="return confirm('Are you sure you want to delete this product?')">🗑️
+                                            Delete</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
                         <img src="{{ asset('storage/' . $product->image) }}" alt="Product"
                             class="mx-auto mb-3 h-32 w-full rounded object-cover">
                         <p class="mt-2 text-xl font-medium text-black">{{ $product->name }}</p>
