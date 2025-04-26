@@ -52,7 +52,7 @@ class ProductController extends Controller
             'slug' => $slug,
         ]);
 
-        return redirect()->route('products.index')->with('success', 'Product added successfully');
+        // return redirect()->route('products.index')->with('success', 'Product added successfully');
     }
 
     /**
@@ -66,10 +66,7 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-
-    }
+    public function edit(string $id) {}
 
     /**
      * Update the specified resource in storage.
@@ -77,11 +74,11 @@ class ProductController extends Controller
     public function update(Request $request, string $id)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:products,name',
+            'name' => 'required|string|max:255|unique:products,name,' . $id . ',id',
             'description' => 'required|string',
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
-            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,webp|max:2048|unique:products,image,' . $id . ',id',
         ]);
 
         if ($validator->fails()) {
@@ -91,7 +88,11 @@ class ProductController extends Controller
                 ->withInput();
         }
 
-        $image = $request->image->store('images', 'public');
+        if ($request->hasFile('image')) {
+            $image = $request->image->store('images', 'public');
+        } else {
+            $image = Product::find($id)->image;
+        }
         $slug = Str::slug($request->name);
         $validated = $validator->validated();
 
