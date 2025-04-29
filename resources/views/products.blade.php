@@ -44,7 +44,7 @@
                     <p class="text-sm text-gray-600">Home &gt; All Products</p>
                 </div>
                 <!-- You can open the modal using ID.showModal() method -->
-                <button class="btn" onclick="my_modal_3.showModal()">➕ ADD NEW PRODUCT</button>
+                <button class="btn bg-white text-black" onclick="my_modal_3.showModal()">➕ ADD NEW PRODUCT</button>
                 <dialog id="my_modal_3" class="modal">
                     <div class="modal-box bg-[#003B4A]">
                         <form method="dialog">
@@ -71,8 +71,7 @@
                                     <span class="text-red-500">{{ $message }}</span>
                                 @enderror
                                 <legend class="fieldset-legend">Description</legend>
-                                <textarea class="textarea h-24 w-full bg-white text-black" placeholder="Description"
-                                    name="description"></textarea>
+                                <textarea class="textarea h-24 w-full bg-white text-black" placeholder="Description" name="description"></textarea>
                                 @error('description')
                                     <span class="text-red-500">{{ $message }}</span>
                                 @enderror
@@ -102,7 +101,8 @@
                     <div class="relative rounded-lg bg-white p-4 shadow">
                         <div class="dropdown dropdown-end absolute right-3 top-3">
                             <div tabindex="0" role="button" class="cursor-pointer text-gray-500">⋮</div>
-                            <div tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                            <div tabindex="0"
+                                class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
                                 <a class="block w-full p-2 text-white hover:bg-gray-700"
                                     onclick="edit_modal_{{ $product->id }}.showModal()">
                                     ✏️ Edit
@@ -139,26 +139,25 @@
                                             <span class="text-red-500">{{ $message }}</span>
                                         @enderror
                                         <legend class="fieldset-legend">Name</legend>
-                                        <input type="text" class="input w-full bg-white text-black" placeholder="Name"
-                                            name="name" value="{{ $product->name }}" />
+                                        <input type="text" class="input w-full bg-white text-black"
+                                            placeholder="Name" name="name" value="{{ $product->name }}" />
                                         @error('name')
                                             <span class="text-red-500">{{ $message }}</span>
                                         @enderror
                                         <legend class="fieldset-legend">Description</legend>
-                                        <textarea class="textarea h-24 w-full bg-white text-black" placeholder="Description"
-                                            name="description">{{ $product->description }}</textarea>
+                                        <textarea class="textarea h-24 w-full bg-white text-black" placeholder="Description" name="description">{{ $product->description }}</textarea>
                                         @error('description')
                                             <span class="text-red-500">{{ $message }}</span>
                                         @enderror
                                         <legend class="fieldset-legend">Price</legend>
-                                        <input type="number" class="input w-full bg-white text-black" placeholder="Price"
-                                            name="price" value="{{ $product->price }}" />
+                                        <input type="number" class="input w-full bg-white text-black"
+                                            placeholder="Price" name="price" value="{{ $product->price }}" />
                                         @error('price')
                                             <span class="text-red-500">{{ $message }}</span>
                                         @enderror
                                         <legend class="fieldset-legend">Stock</legend>
-                                        <input type="number" class="input w-full bg-white text-black" placeholder="Stock"
-                                            name="stock" value="{{ $product->stock }}" />
+                                        <input type="number" class="input w-full bg-white text-black"
+                                            placeholder="Stock" name="stock" value="{{ $product->stock }}" />
                                         @error('stock')
                                             <span class="text-red-500">{{ $message }}</span>
                                         @enderror
