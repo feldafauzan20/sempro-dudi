@@ -71,7 +71,8 @@
                                     <span class="text-red-500">{{ $message }}</span>
                                 @enderror
                                 <legend class="fieldset-legend">Description</legend>
-                                <textarea class="textarea h-24 w-full bg-white text-black" placeholder="Description" name="description"></textarea>
+                                <textarea class="textarea h-24 w-full bg-white text-black" placeholder="Description"
+                                    name="description"></textarea>
                                 @error('description')
                                     <span class="text-red-500">{{ $message }}</span>
                                 @enderror
@@ -101,21 +102,20 @@
                     <div class="relative rounded-lg bg-white p-4 shadow">
                         <div class="dropdown dropdown-end absolute right-3 top-3">
                             <div tabindex="0" role="button" class="cursor-pointer text-gray-500">⋮</div>
-                            <ul tabindex="0"
-                                class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                                <li>
-                                    <a class="text-white" onclick="edit_modal_{{ $product->id }}.showModal()">✏️
-                                        Edit</a>
-                                </li>
-                                <li>
-                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="w-full text-left text-white">🗑️
-                                            Delete</button>
-                                    </form>
-                                </li>
-                            </ul>
+                            <div tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                                <a class="block w-full p-2 text-white hover:bg-gray-700"
+                                    onclick="edit_modal_{{ $product->id }}.showModal()">
+                                    ✏️ Edit
+                                </a>
+                                <form action="{{ route('products.destroy', $product->id) }}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="block w-full p-2 text-left text-white hover:bg-gray-700"
+                                        onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this product?')) { this.closest('form').submit(); }">
+                                        🗑️ Delete
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                         <dialog id="edit_modal_{{ $product->id }}" class="modal">
                             <div class="modal-box bg-[#003B4A]">
@@ -139,25 +139,26 @@
                                             <span class="text-red-500">{{ $message }}</span>
                                         @enderror
                                         <legend class="fieldset-legend">Name</legend>
-                                        <input type="text" class="input w-full bg-white text-black"
-                                            placeholder="Name" name="name" value="{{ $product->name }}" />
+                                        <input type="text" class="input w-full bg-white text-black" placeholder="Name"
+                                            name="name" value="{{ $product->name }}" />
                                         @error('name')
                                             <span class="text-red-500">{{ $message }}</span>
                                         @enderror
                                         <legend class="fieldset-legend">Description</legend>
-                                        <textarea class="textarea h-24 w-full bg-white text-black" placeholder="Description" name="description">{{ $product->description }}</textarea>
+                                        <textarea class="textarea h-24 w-full bg-white text-black" placeholder="Description"
+                                            name="description">{{ $product->description }}</textarea>
                                         @error('description')
                                             <span class="text-red-500">{{ $message }}</span>
                                         @enderror
                                         <legend class="fieldset-legend">Price</legend>
-                                        <input type="number" class="input w-full bg-white text-black"
-                                            placeholder="Price" name="price" value="{{ $product->price }}" />
+                                        <input type="number" class="input w-full bg-white text-black" placeholder="Price"
+                                            name="price" value="{{ $product->price }}" />
                                         @error('price')
                                             <span class="text-red-500">{{ $message }}</span>
                                         @enderror
                                         <legend class="fieldset-legend">Stock</legend>
-                                        <input type="number" class="input w-full bg-white text-black"
-                                            placeholder="Stock" name="stock" value="{{ $product->stock }}" />
+                                        <input type="number" class="input w-full bg-white text-black" placeholder="Stock"
+                                            name="stock" value="{{ $product->stock }}" />
                                         @error('stock')
                                             <span class="text-red-500">{{ $message }}</span>
                                         @enderror
