@@ -47,16 +47,15 @@
                     <div class="dropdown dropdown-end dropdown-hover relative">
                         <button tabindex="0"
                             class="rounded-md bg-white px-3 py-1 text-sm font-medium text-black shadow">ADMIN ⌄</button>
-                        <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-32 p-2 shadow">
-                            <li>
+                        <div tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-32 p-2 shadow">
+                            <div>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <a :href="route('logout')"
-                                        onclick="event.preventDefault();
+                                    <a :href="route('logout')" onclick="event.preventDefault();
                                                 this.closest('form').submit();">Logout</a>
                                 </form>
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
 
 
                     </div>
