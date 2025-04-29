@@ -52,7 +52,7 @@ class ProductController extends Controller
             'slug' => $slug,
         ]);
 
-        // return redirect()->route('products.index')->with('success', 'Product added successfully');
+        return redirect()->route('products.index')->with('success', 'Product added successfully');
     }
 
     /**
