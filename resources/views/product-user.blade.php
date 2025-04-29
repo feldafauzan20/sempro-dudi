@@ -42,7 +42,7 @@
         </div>
     </div>
     <div class="h-full bg-white">
-        <div class="font-poppins flex h-[35%] w-full items-center pb-20 pl-10 pt-32 text-black">
+        <div class="font-poppins flex h-[35%] w-full items-center pb-20 pt-32 justify-center">
             <h1 class="text-8xl font-bold text-[#2563EA]">This is our product</h1>
         </div>
         <div>
